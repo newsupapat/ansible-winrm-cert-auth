@@ -1,7 +1,7 @@
 Add-Type -AssemblyName 'System.Web'
 # Admin Ansible user
 $ansibleRunnerUsername = 'Administrator'
-$password = 'd=KIJR.(f!p;)(RFf@Jy5y&E%oR.Y$yT'
+$password = '#####'
 $ansibleRunnerPassword = (ConvertTo-SecureString -String $password -AsPlainText -Force)
 # Map generated certificates to the ansible runner
 $credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $ansibleRunnerUsername, $ansibleRunnerPassword
