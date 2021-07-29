@@ -16,7 +16,6 @@ $null = New-ItemProperty @newItemParams
 # Map generated certificates to the ansible runner
 $credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $ansibleRunnerUsername, $ansibleRunnerPassword
 
-
 # Find the cert thumbprint for the client certificate created on the Ansible host
 $ansibleCert = Get-ChildItem -Path 'Cert:\LocalMachine\Root' | Where-Object {$_.Subject -eq 'CN=Administrator'}
 
