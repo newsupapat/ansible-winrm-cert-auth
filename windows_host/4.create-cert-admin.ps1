@@ -3,21 +3,11 @@ Add-Type -AssemblyName 'System.Web'
 $ansibleRunnerUsername = 'Administrator'
 $password = '#####'
 $ansibleRunnerPassword = (ConvertTo-SecureString -String $password -AsPlainText -Force)
-
-# Allow WinRM with User Account Control
-$newItemParams = @{
-    Path         = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System'
-    Name         = 'LocalAccountTokenFilterPolicy'
-    Value        = 1
-    PropertyType = 'DWORD'
-    Force        = $true
-}
-$null = New-ItemProperty @newItemParams
 # Map generated certificates to the ansible runner
 $credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $ansibleRunnerUsername, $ansibleRunnerPassword
 
 # Find the cert thumbprint for the client certificate created on the Ansible host
-$ansibleCert = Get-ChildItem -Path 'Cert:\LocalMachine\Root' | Where-Object {$_.Subject -eq 'CN=Administrator'}
+$ansibleCert = Get-ChildItem -Path 'Cert:\LocalMachine\Root' | Where-Object {$_.Subject -eq 'CN=ansiblerunner'}
 
 $params = @{
 	Path = 'WSMan:\localhost\ClientCertificate'
